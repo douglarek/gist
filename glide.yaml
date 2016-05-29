@@ -1,0 +1,7 @@
+package: github.com/douglarek/gist
+import:
+- package: github.com/google/go-github
+  subpackages:
+  - github
+- package: github.com/howeyc/gopass
+- package: golang.org/x/oauth2

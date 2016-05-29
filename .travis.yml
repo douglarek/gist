@@ -1,0 +1,18 @@
+language: go
+
+go:
+  - 1.5
+  - 1.6
+  - tip
+
+sudo: false
+
+install:
+  - go get -u -x github.com/Masterminds/glide
+  - go get -u -x github.com/golang/lint/golint
+  - glide install
+  - export GO15VENDOREXPERIMENT=1
+
+script:
+  - for i in `glide nv`; do golint $i; done
+  - glide nv | xargs go test
