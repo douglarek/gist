@@ -105,20 +105,23 @@ func (g *Gist) Get(id string) (err error) {
 }
 
 // Delete deletes gaven gists by ids.
-func (g *Gist) Delete(id ...string) (err error) {
+func (g *Gist) Delete(id ...string) error {
 	c := make(chan error, len(id))
 	for _, i := range id {
 		go func(id string) {
-			_, err = g.Gists.Delete(id)
+			_, err := g.Gists.Delete(id)
+			if err == nil {
+				fmt.Printf("<id: %s> has been deleted ...\n", id)
+			}
 			c <- err
 		}(i)
 	}
-	for e := range c {
-		if e != nil {
-			return e
+	for i := 0; i < len(id); i++ {
+		if err := <-c; err != nil {
+			fmt.Println(err)
 		}
 	}
-	return
+	return nil
 }
 
 // Token is a GitHub token entry.
