@@ -1,12 +1,15 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 )
 
 // StringSliceValue is a string slice value shortcut.
 type StringSliceValue []string
+
+var _ flag.Value = (*StringSliceValue)(nil)
 
 func (f *StringSliceValue) String() string {
 	return fmt.Sprintf(`%v`, *f)
