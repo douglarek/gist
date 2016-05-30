@@ -150,7 +150,7 @@ func ask() (user, pass string) {
 		return
 	}
 	fmt.Print("GitHub password: ")
-	p, err := gopass.GetPasswd()
+	p, err := gopass.GetPasswdMasked()
 	if err != nil {
 		return
 	}
