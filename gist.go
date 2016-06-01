@@ -63,14 +63,14 @@ func (g *Gist) Create(description string, anonymous, public bool, files ...strin
 }
 
 // List gets user's gists.
-func (g *Gist) List(public bool) (err error) {
+func (g *Gist) List(user string, public bool) (err error) {
 	opt := &github.GistListOptions{
 		ListOptions: github.ListOptions{
 			PerPage: 20,
 		},
 	}
 	for {
-		gs, resp, err := g.Gists.List("", opt)
+		gs, resp, err := g.Gists.List(user, opt)
 		if err != nil {
 			return err
 		}

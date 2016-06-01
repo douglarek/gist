@@ -4,6 +4,7 @@ import "flag"
 
 var (
 	list, all         bool
+	user              string
 	get               string
 	login             bool
 	delete            StringSliceValue
@@ -14,6 +15,7 @@ var (
 func init() {
 	flag.BoolVar(&list, "l", false, "List public gists, with -A list all ones")
 	flag.BoolVar(&all, "A", false, "")
+	flag.StringVar(&user, "u", "", "List someone's gists")
 	flag.StringVar(&get, "i", "", "Get a gist by id")
 	flag.BoolVar(&login, "login", false, "Authenticate gist on this computer")
 	flag.Var(&delete, "D", "Detele existing gists by ids")
@@ -34,7 +36,7 @@ func main() {
 	case login:
 		exit(token(ask()))
 	case list:
-		exit(g.List(!all))
+		exit(g.List(user, !all))
 	case len(delete) != 0:
 		exit(g.Delete(delete...))
 	default:
