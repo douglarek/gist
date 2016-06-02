@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -158,6 +159,7 @@ func ask() (user, pass string) {
 	return
 
 }
+
 func token(user, pass string) (err error) {
 	fp := time.Now().Nanosecond()
 	note := fmt.Sprintf(`{"note": "gist","scopes":["gist"],"fingerprint":"%v"}`, fp)
@@ -176,20 +178,15 @@ func token(user, pass string) (err error) {
 		return
 	}
 
-	if resp.StatusCode == http.StatusUnauthorized {
-		return
+	if sc := resp.StatusCode; sc == http.StatusUnauthorized {
+		return errors.New(http.StatusText(sc))
 	}
 
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return
-	}
 
 	var t Token
-	err = json.Unmarshal(body, &t)
-	if err != nil {
-		return
+	if err := json.NewDecoder(resp.Body).Decode(&t); err != nil {
+		return err
 	}
 
 	return ioutil.WriteFile(gistFile, []byte(t.Token), 0644)
