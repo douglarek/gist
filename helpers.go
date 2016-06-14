@@ -15,7 +15,7 @@ func (f *StringSliceValue) String() string {
 	return fmt.Sprintf(`%v`, *f)
 }
 
-// Set implemets flag.Value interface Set method.
+// Set implements flag.Value interface Set method.
 func (f *StringSliceValue) Set(value string) error {
 	*f = append(*f, value)
 	return nil
