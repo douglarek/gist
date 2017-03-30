@@ -52,7 +52,9 @@ func (g *Gist) Create(description string, anonymous, public bool, files ...strin
 			return err
 		}
 		c := string(dat)
-		fs[github.GistFilename(v)] = github.GistFile{Filename: &v, Content: &c}
+		vv := strings.Split(v, "/")
+		name := vv[len(vv)-1]
+		fs[github.GistFilename(name)] = github.GistFile{Filename: &name, Content: &c}
 	}
 	g0 := &github.Gist{Files: fs, Public: &public, Description: &description}
 	if anonymous {
