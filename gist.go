@@ -163,20 +163,40 @@ func ask() (user, pass string) {
 
 }
 
-func token(user, pass string) (err error) {
+func basicRequest(user, pass, otp string) (*http.Request, error) {
 	fp := time.Now().Nanosecond()
 	note := fmt.Sprintf(`{"note": "gist","scopes":["gist"],"fingerprint":"%v"}`, fp)
 	url := "https://api.github.com/authorizations"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(note)))
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	req.SetBasicAuth(user, pass)
 	req.Header.Set("Content-Type", "application/json")
+	if len(otp) != 0 {
+		req.Header.Set("X-GitHub-OTP", otp)
+	}
+	return req, nil
+}
 
+func token(user, pass string) (err error) {
+	req, err := basicRequest(user, pass, "")
+	if err != nil {
+		return nil
+	}
 	client := http.Client{Timeout: 10 * time.Second}
 	resp, err := client.Do(req)
+	if strings.HasPrefix(resp.Header.Get("X-Github-Otp"), "required") {
+		var code string
+		fmt.Print("GitHub OTP: ")
+		fmt.Scan(&code)
+		req, err := basicRequest(user, pass, code)
+		if err != nil {
+			return nil
+		}
+		resp, err = client.Do(req)
+	}
 	if err != nil {
 		return
 	}
@@ -192,5 +212,9 @@ func token(user, pass string) (err error) {
 		return err
 	}
 
-	return ioutil.WriteFile(gistFile, []byte(t.Token), 0644)
+	if err := ioutil.WriteFile(gistFile, []byte(t.Token), 0644); err != nil {
+		return err
+	}
+	fmt.Println("success ...")
+	return nil
 }
