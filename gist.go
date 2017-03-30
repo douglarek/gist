@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -22,6 +23,7 @@ import (
 var (
 	client   *github.Client
 	gistFile = filepath.Join(os.Getenv("HOME"), ".gist")
+	ctx      = context.Background()
 )
 
 func init() {
@@ -31,7 +33,7 @@ func init() {
 		client = github.NewClient(nil)
 	} else {
 		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: string(dt)})
-		tc := oauth2.NewClient(oauth2.NoContext, ts)
+		tc := oauth2.NewClient(ctx, ts)
 		client = github.NewClient(tc)
 	}
 }
@@ -56,7 +58,7 @@ func (g *Gist) Create(description string, anonymous, public bool, files ...strin
 	if anonymous {
 		*g.Client = *github.NewClient(nil)
 	}
-	g0, _, err = g.Gists.Create(g0)
+	g0, _, err = g.Gists.Create(ctx, g0)
 	if err == nil {
 		fmt.Println(*g0.HTMLURL)
 	}
@@ -71,7 +73,7 @@ func (g *Gist) List(user string, public bool) (err error) {
 		},
 	}
 	for {
-		gs, resp, err := g.Gists.List(user, opt)
+		gs, resp, err := g.Gists.List(ctx, user, opt)
 		if err != nil {
 			return err
 		}
@@ -79,6 +81,7 @@ func (g *Gist) List(user string, public bool) (err error) {
 			if public && *i.Public {
 				continue
 			}
+
 			for fn := range i.Files {
 				fmt.Printf("%-64s%s\n", *i.HTMLURL, fn)
 			}
@@ -93,7 +96,7 @@ func (g *Gist) List(user string, public bool) (err error) {
 
 // Get querys a single gist detail.
 func (g *Gist) Get(id string) (err error) {
-	g0, _, err := g.Gists.Get(id)
+	g0, _, err := g.Gists.Get(ctx, id)
 	if err != nil {
 		return
 	}
@@ -110,7 +113,7 @@ func (g *Gist) Delete(id ...string) error {
 	c := make(chan error, len(id))
 	for _, i := range id {
 		go func(id string) {
-			_, err := g.Gists.Delete(id)
+			_, err := g.Gists.Delete(ctx, id)
 			if err == nil {
 				fmt.Printf("<id: %s> has been deleted ...\n", id)
 			}

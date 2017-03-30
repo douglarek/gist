@@ -1,0 +1,87 @@
+{
+    "memo": "0048e612986dd06198f58ad41f87ee6ffd4d19167dda6c6068a10503e141636d",
+    "projects": [
+        {
+            "name": "github.com/golang/protobuf",
+            "branch": "master",
+            "revision": "c9c7427a2a70d2eb3bafa0ab2dc163e45f143317",
+            "packages": [
+                "proto"
+            ]
+        },
+        {
+            "name": "github.com/google/go-github",
+            "branch": "master",
+            "revision": "3c8f26c1ae8c61ba5d06731b36435a4f46ea9da5",
+            "packages": [
+                "github"
+            ]
+        },
+        {
+            "name": "github.com/google/go-querystring",
+            "branch": "master",
+            "revision": "53e6ce116135b80d037921a7fdd5138cf32d7a8a",
+            "packages": [
+                "query"
+            ]
+        },
+        {
+            "name": "github.com/howeyc/gopass",
+            "branch": "master",
+            "revision": "bf9dde6d0d2c004a008c27aaee91170c786f6db8",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/crypto",
+            "branch": "master",
+            "revision": "459e26527287adbc2adcc5d0d49abff9a5f315a7",
+            "packages": [
+                "ssh/terminal"
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "ffcf1bedda3b04ebb15a168a59800a73d6dc0f4d",
+            "packages": [
+                "context"
+            ]
+        },
+        {
+            "name": "golang.org/x/oauth2",
+            "branch": "master",
+            "revision": "7fdf09982454086d5570c7db3e11f360194830ca",
+            "packages": [
+                ".",
+                "internal"
+            ]
+        },
+        {
+            "name": "golang.org/x/sys",
+            "branch": "master",
+            "revision": "9a7256cb28ed514b4e1e5f68959914c4c28a92e0",
+            "packages": [
+                "unix"
+            ]
+        },
+        {
+            "name": "google.golang.org/appengine",
+            "version": "v1.0.0",
+            "revision": "150dc57a1b433e64154302bdc40b6bb8aefa313a",
+            "packages": [
+                ".",
+                "internal",
+                "internal/app_identity",
+                "internal/base",
+                "internal/datastore",
+                "internal/log",
+                "internal/modules",
+                "internal/remote_api",
+                "internal/urlfetch",
+                "urlfetch"
+            ]
+        }
+    ]
+}
