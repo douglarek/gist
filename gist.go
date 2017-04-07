@@ -98,6 +98,10 @@ func (g *Gist) List(user string, public bool) (err error) {
 
 // Get querys a single gist detail.
 func (g *Gist) Get(id string) (err error) {
+	if strings.HasPrefix(id, "https") {
+		ids := strings.Split(id, "/")
+		id = ids[len(ids)-1]
+	}
 	g0, _, err := g.Gists.Get(ctx, id)
 	if err != nil {
 		return
