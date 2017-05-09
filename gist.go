@@ -43,20 +43,28 @@ type Gist struct {
 	*github.Client
 }
 
-// Create makes a gist.
-func (g *Gist) Create(description string, anonymous, public bool, files ...string) (err error) {
+func makeGistFiles(files ...string) (*github.Gist, error) {
 	fs := make(map[github.GistFilename]github.GistFile, len(files))
 	for _, v := range files {
 		dat, err := ioutil.ReadFile(v)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		c := string(dat)
 		vv := strings.Split(v, "/")
 		name := vv[len(vv)-1]
 		fs[github.GistFilename(name)] = github.GistFile{Filename: &name, Content: &c}
 	}
-	g0 := &github.Gist{Files: fs, Public: &public, Description: &description}
+	return &github.Gist{Files: fs}, nil
+}
+
+// Create makes a gist.
+func (g *Gist) Create(description string, anonymous, public bool, files ...string) (err error) {
+	g0, err := makeGistFiles(files...)
+	if err != nil {
+		return nil
+	}
+	g0.Description = &description
 	if anonymous {
 		*g.Client = *github.NewClient(nil)
 	}
@@ -65,6 +73,22 @@ func (g *Gist) Create(description string, anonymous, public bool, files ...strin
 		fmt.Println(*g0.HTMLURL)
 	}
 	return
+}
+
+// Edit a gist
+func (g *Gist) Edit(id, description string, files ...string) (err error) {
+	g0, err := makeGistFiles(files...)
+	if err != nil {
+		return nil
+	}
+	if len(description) != 0 {
+		g0.Description = &description
+	}
+	g0, _, err = g.Gists.Edit(ctx, id, g0)
+	if err == nil {
+		fmt.Println(*g0.HTMLURL)
+	}
+	return err
 }
 
 // List gets user's gists.
