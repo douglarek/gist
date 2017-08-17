@@ -19,7 +19,7 @@ func init() {
 	flag.StringVar(&user, "u", "", "List someone's gists")
 	flag.StringVar(&get, "i", "", "Get a gist by id")
 	flag.BoolVar(&login, "login", false, "Authenticate gist on this computer")
-	flag.Var(&delete, "D", "Detele existing gists by ids")
+	flag.Var(&delete, "D", "Delete existing gists by ids")
 	flag.StringVar(&edit, "e", "", "Edit a gist by id")
 	flag.StringVar(&description, "d", "", "Adds a description to your gist")
 	flag.BoolVar(&anonymous, "a", false, "Create an anonymous gist")

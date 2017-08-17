@@ -23,10 +23,9 @@ _testmain.go
 *.test
 *.prof
 
-# glide dependences
+# Custom
 vendor/**
-
 gist
-
+debug
 *.iml
 .idea

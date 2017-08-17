@@ -120,7 +120,7 @@ func (g *Gist) List(user string, public bool) (err error) {
 	return
 }
 
-// Get querys a single gist detail.
+// Get queries a single gist detail.
 func (g *Gist) Get(id string) (err error) {
 	if strings.HasPrefix(id, "https") {
 		ids := strings.Split(id, "/")
@@ -138,7 +138,7 @@ func (g *Gist) Get(id string) (err error) {
 	return
 }
 
-// Delete deletes gaven gists by ids.
+// Delete deletes given gists by ids.
 func (g *Gist) Delete(id ...string) error {
 	c := make(chan error, len(id))
 	for _, i := range id {
