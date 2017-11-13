@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	"golang.org/x/oauth2"
@@ -140,21 +141,19 @@ func (g *Gist) Get(id string) (err error) {
 
 // Delete deletes given gists by ids.
 func (g *Gist) Delete(id ...string) error {
-	c := make(chan error, len(id))
+	var wg sync.WaitGroup
 	for _, i := range id {
+		wg.Add(1)
 		go func(id string) {
-			_, err := g.Gists.Delete(ctx, id)
-			if err == nil {
+			defer wg.Done()
+			if _, err := g.Gists.Delete(ctx, id); err != nil {
+				fmt.Printf("<%s>: %s\n", id, err)
+			} else {
 				fmt.Printf("<id: %s> has been deleted ...\n", id)
 			}
-			c <- err
 		}(i)
 	}
-	for i := 0; i < len(id); i++ {
-		if err := <-c; err != nil {
-			fmt.Println(err)
-		}
-	}
+	wg.Wait()
 	return nil
 }
 
