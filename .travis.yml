@@ -6,8 +6,8 @@ go:
 sudo: false
 
 install:
-  - go get -u -x github.com/golang/dep/cmd/dep
-  - dep ensure
+  - go get -u -x golang.org/x/vgo
+  - vgo build -v -x
 
 script:
-  - go test $(go list ./... | grep -v /vendor/)
+  - vgo test ./...
