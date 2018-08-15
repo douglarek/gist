@@ -1,13 +1,13 @@
-# gist [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/gorocks/gist) [![License](https://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/gorocks/gist/master/LICENSE) [![Build Status](https://img.shields.io/travis/gorocks/gist.svg?style=flat-square)](https://travis-ci.org/gorocks/gist)
+# gist [![GoDoc](https://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](https://godoc.org/github.com/douglarek/gist) [![License](https://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/douglarek/gist/master/LICENSE) [![Build Status](https://img.shields.io/travis/douglarek/gist.svg?style=flat-square)](https://travis-ci.org/douglarek/gist)
 
-A gist tool written with Golang.
+A command line gister.
 
 ## Install
 
 ```
-$ go get -u github.com/gorocks/gist
+$ go get -u github.com/douglarek/gist
 ```
 
 ## License
 
-Licensed under the [MIT License](https://github.com/gorocks/gist/blob/master/LICENSE).
+Licensed under the [MIT License](https://github.com/douglarek/gist/blob/master/LICENSE).

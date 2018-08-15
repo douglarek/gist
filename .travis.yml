@@ -1,16 +1,18 @@
 language: go
 
 go:
-  - tip
+  - "1.11rc1"
 
 sudo: false
 
 before_install:
   - echo -e "machine api.github.com login douglarek password $GITHUB_TOKEN" >> ~/.netrc
 
+env:
+  - GO111MODULE=on
+
 install:
-  - go get -u -x golang.org/x/vgo
-  - vgo build -v -x
+  - go build -v -x
 
 script:
-  - vgo test ./...
+  - go test ./...

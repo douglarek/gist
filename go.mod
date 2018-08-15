@@ -1,11 +1,14 @@
-module "github.com/gorocks/gist"
+module github.com/douglarek/gist
 
 require (
-	"github.com/google/go-github" v0.0.0-20180403031559-88eb4e9dc91c
-	"github.com/google/go-querystring" v0.0.0-20170111101155-53e6ce116135
-	"github.com/howeyc/gopass" v0.0.0-20170109162249-bf9dde6d0d2c
-	"golang.org/x/crypto" v0.0.0-20180403160946-b2aa35443fbc
-	"golang.org/x/net" v0.0.0-20180404174746-b3c676e531a6
-	"golang.org/x/oauth2" v0.0.0-20180402223937-921ae394b943
-	"golang.org/x/sys" v0.0.0-20180404203733-1d206c9fa897
+	github.com/golang/protobuf v1.1.0 // indirect
+	github.com/google/go-github v17.0.0+incompatible
+	github.com/google/go-querystring v0.0.0-20170111101155-53e6ce116135 // indirect
+	github.com/howeyc/gopass v0.0.0-20170109162249-bf9dde6d0d2c
+	golang.org/x/crypto v0.0.0-20180808211826-de0752318171 // indirect
+	golang.org/x/net v0.0.0-20180811021610-c39426892332 // indirect
+	golang.org/x/oauth2 v0.0.0-20180724155351-3d292e4d0cdc
+	golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f // indirect
+	golang.org/x/sys v0.0.0-20180814072032-4e1fef560951 // indirect
+	google.golang.org/appengine v1.1.0 // indirect
 )
