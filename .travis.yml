@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - "1.11rc1"
+  - "1.12rc1"
 
 sudo: false
 
@@ -9,7 +9,7 @@ before_install:
   - echo -e "machine api.github.com login douglarek password $GITHUB_TOKEN" >> ~/.netrc
 
 env:
-  - GO111MODULE=on
+  - GO111MODULE=on GOPROXY=https://athens.azurefd.net/
 
 install:
   - go build -v -x
