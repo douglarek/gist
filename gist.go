@@ -224,7 +224,7 @@ func token(user, pass string) (err error) {
 		if err != nil {
 			return nil
 		}
-		resp, err = client.Do(req)
+		resp, err = client.Do(req) // nolint
 	}
 	if err != nil {
 		return
